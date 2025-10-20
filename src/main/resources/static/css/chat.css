@@ -100,13 +100,13 @@ body {
     word-wrap: break-word;
 }
 
-.from-user {
+.user {
     background-color: #0078ff;
     color: white;
     align-self: flex-end;
 }
 
-.from-bot {
+.system {
     background-color: #e5e5ea;
     color: black;
     align-self: flex-start;

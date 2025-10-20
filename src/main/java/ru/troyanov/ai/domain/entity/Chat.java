@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class Chat extends BaseEntity {
@@ -23,8 +24,12 @@ public class Chat extends BaseEntity {
     @Column(name = "created_at")
     private OffsetDateTime createdAt;
 
-    @OrderBy("createdAt DESC")
+    @OrderBy("createdAt")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "chat",  fetch = FetchType.LAZY)
     private Set<Message> messages;
+
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
 
 }

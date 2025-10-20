@@ -5,12 +5,10 @@ plugins {
 }
 
 group = "ru.troyanov.chat"
-version = "0.0.1-SNAPSHOT"
-description = "Demo project for Spring Boot"
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
@@ -22,6 +20,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("org.postgresql:postgresql")
+
+    implementation("org.springframework.ai:spring-ai-client-chat:1.0.3")
+    implementation("org.springframework.ai:spring-ai-ollama-spring-boot-starter:1.0.0-M6")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

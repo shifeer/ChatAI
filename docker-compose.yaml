@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres-compose
+    image: ankane/pgvector
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgres/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: chat_ai
+
+  ollama:
+    container_name: ollama-compose
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama:/root/.ollama
+    entrypoint: >
+      /bin/sh -c "
+        ollama serve &
+        sleep 2 &&
+        ollama pull gemma3:4b-it-q4_K_M &&
+        wait
+      "
+
+  chat_ai-service:
+    container_name: chat_ai-compose
+    build:
+      dockerfile: .
+    depends_on:
+      - ollama
+      - postgres
+    entrypoint: "java -jar chat.jar"

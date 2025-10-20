@@ -19,10 +19,11 @@
             </div>
         </div>
         <ul class="chat-list">
-            <li th:each="chat : ${chats}"
-                th:classappend="${chat.id} == ${activeChatId} ? 'active' : ''">
-                <a th:href="@{/chat/{id}(id=${chat.id})}" th:text="${chat.title}">Название чата</a>
-                <form th:action="@{/chats/delete/{id}(id=${chat.id})}" method="post" class="delete-form">
+            <li th:each="c : ${chats}"
+                th:classappend="${chat != null and chat.id != null and c.id == chat.id} ? 'active' : ''">
+                <a th:href="@{/chats/{id}(id=${c.id})}" th:text="${c.title}">Название чата</a>
+                <form th:action="@{/chats/{id}(id=${c.id})}" method="post" class="delete-form">
+                    <input type="hidden" name="_method" value="delete">
                     <button type="submit" class="delete-btn">×</button>
                 </form>
             </li>
@@ -32,16 +33,17 @@
     <!-- Основное окно чата -->
     <main class="chat-window">
         <div class="messages">
+            <!--/*@thymesVar id="messages" type="java"*/-->
             <div th:each="message : ${messages}"
-                 th:class="'message ' + (${message.fromUser} ? 'from-user' : 'from-bot')">
-                <p th:text="${message.text}">Текст сообщения</p>
+                 th:class="'message ' + (${message.chatRole.value == 'user'} ? 'user' : 'system')">
+                <p th:text="${message.payload}">Текст сообщения</p>
             </div>
         </div>
 
         <!-- Поле ввода -->
-        <form class="input-form" th:action="@{/chat/send}" method="post">
-            <input type="hidden" name="chatId" th:value="${activeChatId}">
-            <input type="text" name="text" placeholder="Введите сообщение..." required autocomplete="off">
+        <form id="send-form" class="input-form" th:action="@{/chats/send}" method="post">
+            <input type="hidden" name="id" th:value="${chat.id}">
+            <input type="text" name="payload" placeholder="Введите сообщение..." required autocomplete="off">
             <button type="submit">Отправить</button>
         </form>
     </main>

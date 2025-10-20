@@ -1,9 +1,11 @@
-package ru.troyanov.ai.domain.common;
+package ru.troyanov.ai.domain.enums;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 
+@Getter
 @RequiredArgsConstructor
 public enum ChatRole {
     SYSTEM("system"),

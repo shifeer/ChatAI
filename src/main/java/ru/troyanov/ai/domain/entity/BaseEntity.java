@@ -1,5 +1,6 @@
 package ru.troyanov.ai.domain.entity;
 
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 import lombok.AccessLevel;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class BaseEntity {
 
+    @Id
     private UUID id = UUID.randomUUID();
 
 }

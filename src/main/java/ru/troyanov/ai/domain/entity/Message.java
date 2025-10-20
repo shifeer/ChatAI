@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import ru.troyanov.ai.domain.enums.ChatRole;
 
 import java.time.OffsetDateTime;
 
 @Entity
-@Table(name = "chat")
+@Table(name = "message")
 @EntityListeners(AuditingEntityListener.class)
 @Builder
 @Getter
@@ -21,6 +22,10 @@ public class Message extends BaseEntity {
     @CreatedDate
     @Column(name = "created_at")
     private OffsetDateTime createdAt;
+
+    @Column(name = "chat_role")
+    @Enumerated(EnumType.STRING)
+    private ChatRole chatRole;
 
     @JoinColumn(name = "chat_id")
     @ManyToOne
