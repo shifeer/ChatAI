@@ -27,12 +27,14 @@ services:
         ollama pull gemma3:4b-it-q4_K_M &&
         wait
       "
+    restart: unless-stopped
 
   chat_ai-service:
     container_name: chat_ai-compose
     build:
-      dockerfile: .
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - ollama
       - postgres
-    entrypoint: "java -jar chat.jar"
+    entrypoint: "java -jar /app/artifacts/chatai.jar"

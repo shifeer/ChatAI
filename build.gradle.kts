@@ -22,7 +22,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("org.postgresql:postgresql")
 
-    implementation("org.springframework.ai:spring-ai-client-chat:1.0.3")
+//    implementation("org.springframework.ai:spring-ai-client-chat:1.0.0")
     implementation("org.springframework.ai:spring-ai-ollama-spring-boot-starter:1.0.0-M6")
 
     compileOnly("org.projectlombok:lombok")
